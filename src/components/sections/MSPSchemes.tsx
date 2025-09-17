@@ -2,7 +2,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { TrendingUp, Calendar, MapPin, DollarSign } from 'lucide-react';
+import { TrendingUp, Calendar, MapPin, DollarSign, MessageSquare } from 'lucide-react';
+import ChatBot from '@/components/ChatBot';
 
 interface MSPSchemesProps {
   currentLanguage: string;
@@ -57,6 +58,8 @@ const mockMSPData: MSPData[] = [
 ];
 
 const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
+  const [showChatBot, setShowChatBot] = useState(false);
+
   const translations = {
     en: {
       title: 'Minimum Support Price (MSP)',
@@ -68,7 +71,9 @@ const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
       viewAll: 'View All MSP Rates',
       up: 'up',
       down: 'down',
-      stable: 'stable'
+      stable: 'stable',
+      chatAssistant: 'Chat Assistant',
+      askQuestions: 'Ask questions about MSP schemes'
     },
     hi: {
       title: 'न्यूनतम समर्थन मूल्य (MSP)',
@@ -80,7 +85,9 @@ const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
       viewAll: 'सभी MSP दरें देखें',
       up: 'वृद्धि',
       down: 'कमी',
-      stable: 'स्थिर'
+      stable: 'स्थिर',
+      chatAssistant: 'चैट सहायक',
+      askQuestions: 'MSP योजनाओं के बारे में प्रश्न पूछें'
     },
     te: {
       title: 'కనీస మద్దతు ధర (MSP)',
@@ -92,7 +99,9 @@ const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
       viewAll: 'అన్ని MSP రేట్లు చూడండి',
       up: 'పెరుగుదల',
       down: 'తగ్గుదల',
-      stable: 'స్థిరమైన'
+      stable: 'స్థిరమైన',
+      chatAssistant: 'చాట్ అసిస్టెంట్',
+      askQuestions: 'MSP పథకాల గురించి ప్రశ్నలు అడగండి'
     },
     ta: {
       title: 'குறைந்தபட்ச ஆதரவு விலை (MSP)',
@@ -104,7 +113,9 @@ const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
       viewAll: 'அனைத்து MSP விலைகளையும் காண்க',
       up: 'அதிகரிப்பு',
       down: 'குறைவு',
-      stable: 'நிலையான'
+      stable: 'நிலையான',
+      chatAssistant: 'சாட் உதவியாளர்',
+      askQuestions: 'MSP திட்டங்கள் பற்றி கேள்விகள் கேளுங்கள்'
     },
     ml: {
       title: 'ഏറ്റവും കുറഞ്ഞ പിന്തുണ വില (MSP)',
@@ -116,7 +127,9 @@ const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
       viewAll: 'എല്ലാ MSP നിരക്കുകളും കാണുക',
       up: 'വർദ്ധനവ്',
       down: 'കുറവ്',
-      stable: 'സ്ഥിരം'
+      stable: 'സ്ഥിരം',
+      chatAssistant: 'ചാറ്റ് അസിസ്റ്റന്റ്',
+      askQuestions: 'MSP പദ്ധതികളെക്കുറിച്ച് ചോദ്യങ്ങൾ ചോദിക്കുക'
     }
   };
 
@@ -129,6 +142,18 @@ const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
         <p className="text-muted-foreground">
           {t.description}
         </p>
+        
+        {/* Chat Assistant Button */}
+        <div className="flex justify-center mt-4">
+          <Button
+            onClick={() => setShowChatBot(!showChatBot)}
+            variant="outline"
+            className="flex items-center gap-2"
+          >
+            <MessageSquare className="w-4 h-4" />
+            {t.chatAssistant}
+          </Button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
@@ -190,6 +215,9 @@ const MSPSchemes = ({ currentLanguage }: MSPSchemesProps) => {
           {t.viewAll}
         </Button>
       </div>
+      
+      {/* ChatBot Component */}
+      {showChatBot && <ChatBot currentLanguage={currentLanguage} />}
     </div>
   );
 };
